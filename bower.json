@@ -1,6 +1,6 @@
 {
   "name": "spinner-backdrop",
-  "description": "The `spinner-backdrop` shows a `paper-spinner` and a backdrop overlay with a great fade-in/fade-out animation to entire container. Perfect for page route transition!",
+  "description": "Shows a `paper-spinner` and a backdrop overlay with a great fade-out animation to entire container. Perfect for page route transition!",
   "version": "1.0.0",
   "homepage": "https://ingressorapidowebcomponents.github.io/components/pdf-browser-viewer",
   "main": "spinner-backdrop.html",
