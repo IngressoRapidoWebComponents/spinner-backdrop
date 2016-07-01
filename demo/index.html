@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <title>spinner-backdrop demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../polymer/polymer.html">
+
+    <link rel="import" href="../spinner-backdrop.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container centered">
+      <h3>Basic spinner-backdrop Demo</h3>
+      <demo-snippet>
+          <template>
+              <style is="custom-style">
+                  .container {
+                      position: relative;
+                      height: 200px;
+                  }
+                  .container spinner-backdrop {
+                      --spinner-backdrop-overlay-color: gray;
+                      --spinner-backdrop-layer-1-color: yellow;
+                      --spinner-backdrop-layer-2-color: #b4ff5f;
+                      --spinner-backdrop-layer-3-color: #4587ff;
+                      --spinner-backdrop-layer-4-color: white;
+                  }
+              </style>
+              <div class="container">
+                <spinner-backdrop loading="true"></spinner-backdrop>
+              </div>
+              <button onclick="toggle(event)">Toggle</button>
+          </template>
+      </demo-snippet>
+    </div>
+
+    <script>
+        function toggle(event) {
+            var spinner = event.target.parentElement.querySelector('spinner-backdrop');
+            spinner.loading = !spinner.loading;
+        }
+    </script>
+  </body>
+</html>

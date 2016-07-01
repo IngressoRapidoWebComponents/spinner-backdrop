@@ -1,0 +1,180 @@
+<!--
+@license
+Copyright (c) 2016 The Ingresso Rápido Web Components Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://ingressorapidowebcomponents.github.io/LICENSE.txt
+The complete set of authors may be found at http://ingressorapidowebcomponents.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://ingressorapidowebcomponents.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-spinner/paper-spinner.html">
+<link rel="import" href="../neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../neon-animation/animations/fade-out-animation.html">
+
+<!--
+
+The `spinner-backdrop` shows a `paper-spinner` and a backdrop overlay with a great fade-in/fade-out animation to entire container.
+Perfect for page route transition!
+
+Example:
+```html
+    <dom-module id="custom-element">
+      <template>
+        <spinner-page loading="{{loading}}"></spinner-page>
+      </dom-module>
+    </template>
+```
+The `spinner-backdrop` will fill the entire `custom-element` container until `loading` gonna be false
+
+You can do it with others elements, example:
+```html
+    <paper-dialog>
+      <spinner-page loading="{{loading}}"></spinner-page>
+    </paper-dialog>
+```
+
+Combine with others elements state, example:
+```html
+    <iron-ajax loading="{{loading}}"></iron-ajax>
+    <spinner-page loading="{{loading}}"></spinner-page>
+```
+
+### Styling
+
+The following custom properties are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--spinner-backdrop-overlay-color` | Color of the overlay | #FFF
+`--spinner-backdrop-layer-1-color` | Color of the first spinner rotation | `--google-blue-500`
+`--spinner-backdrop-layer-2-color` | Color of the second spinner rotation | `--google-red-500`
+`--spinner-backdrop-layer-3-color` | Color of the third spinner rotation | `--google-yellow-500`
+`--spinner-backdrop-layer-4-color` | Color of the fourth spinner rotation | `--google-green-500`
+`--spinner-backdrop-stroke-width` | The width of the spinner stroke | 3px
+
+@demo demo/index.html
+-->
+
+<dom-module id="spinner-backdrop">
+  <template>
+    <style is="custom-style">
+
+      :host {
+        display: none;
+        height: 100%;
+        width: 100%;
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--spinner-backdrop-overlay-color, #FFF);
+      }
+
+      paper-spinner {
+        --paper-spinner-layer-1-color: var(--spinner-backdrop-layer-1-color, --google-blue-500);
+        --paper-spinner-layer-2-color: var(--spinner-backdrop-layer-2-color, --google-red-500);
+        --paper-spinner-layer-3-color: var(--spinner-backdrop-layer-3-color, --google-yellow-500);
+        --paper-spinner-layer-4-color: var(--spinner-backdrop-layer-4-color, --google-green-500);
+        --paper-spinner-stroke-width: var(--spinner-backdrop-stroke-width, 3px);
+      }
+
+    </style>
+
+    <div class="overlay" hidden$="[[!active]]">
+      <paper-spinner alt="[[alt]]" active="[[loading]]"></paper-spinner>
+    </div>
+
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'spinner-backdrop',
+
+        behaviors: [
+          Polymer.NeonAnimationRunnerBehavior
+        ],
+
+        listeners: {
+          'neon-animation-finish': '_onNeonAnimationFinish'
+        },
+
+        properties: {
+          /**
+           * Gets and Sets loading state, not counting animation time
+           *
+           * @type Boolean
+           */
+          loading: {
+            type: Boolean,
+            value: false,
+            notify: true,
+            observer: '_loadingChanged'
+          },
+          /**
+           * Gets active state, true if element is showing on page
+           *
+           * @type Boolean
+           */
+          _active: {
+            type: Boolean,
+            value: false
+          },
+
+          alt: 'loading',
+
+          /**
+           * Default animation configuration
+           *
+           * @type AnimationConfig
+           */
+          animationConfig: {
+            readOnly: true,
+            value: function() {
+              return {
+                'exit' : [{
+                  name: 'fade-out-animation',
+                  node: this,
+                  timing: {duration: 1000}
+                }]
+              }
+            }
+          }
+        },
+
+        /**
+         * Observer if is loading or not
+         */
+        _loadingChanged: function() {
+          this._active = true;
+          this.style.display = 'block';
+
+          if (!this.loading) {
+            this.playAnimation('exit');
+          }
+        },
+
+        /**
+         * Observer if animation is ended
+         */
+        _onNeonAnimationFinish: function() {
+          this._active = false;
+          this.style.display = 'none';
+        }
+
+      });
+    })();
+  </script>
+</dom-module>
