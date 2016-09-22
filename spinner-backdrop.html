@@ -47,6 +47,7 @@ The following custom properties are available for styling:
 
 Custom property | Description | Default
 ----------------|-------------|----------
+`--spinner-backdrop-overlay` |  overlay mixin | {}
 `--spinner-backdrop-overlay-color` | Color of the overlay | #FFF
 `--spinner-backdrop-layer-1-color` | Color of the first spinner rotation | `--google-blue-500`
 `--spinner-backdrop-layer-2-color` | Color of the second spinner rotation | `--google-red-500`
@@ -78,6 +79,9 @@ Custom property | Description | Default
         align-items: center;
         justify-content: center;
         background-color: var(--spinner-backdrop-overlay-color, #FFF);
+        opacity: 0.8;
+        z-index: 2147483645;
+        @apply(--spinner-backdrop-overlay);
       }
 
       paper-spinner {
