@@ -82,20 +82,20 @@ Custom property | Description | Default
         background-color: var(--spinner-backdrop-overlay-color, #FFF);
         opacity: var(--spinner-backdrop-overlay-opacity, 1);
         z-index: var(--spinner-backdrop-z-index, 1);
-        @apply(--spinner-backdrop-overlay);
+        @apply --spinner-backdrop-overlay;
       }
 
       paper-spinner {
-        --paper-spinner-layer-1-color: var(--spinner-backdrop-layer-1-color, --google-blue-500);
-        --paper-spinner-layer-2-color: var(--spinner-backdrop-layer-2-color, --google-red-500);
-        --paper-spinner-layer-3-color: var(--spinner-backdrop-layer-3-color, --google-yellow-500);
-        --paper-spinner-layer-4-color: var(--spinner-backdrop-layer-4-color, --google-green-500);
+        --paper-spinner-layer-1-color: var(--spinner-backdrop-layer-1-color);
+        --paper-spinner-layer-2-color: var(--spinner-backdrop-layer-2-color);
+        --paper-spinner-layer-3-color: var(--spinner-backdrop-layer-3-color);
+        --paper-spinner-layer-4-color: var(--spinner-backdrop-layer-4-color);
         --paper-spinner-stroke-width: var(--spinner-backdrop-stroke-width, 3px);
       }
 
     </style>
 
-    <div class="overlay" hidden$="[[!active]]">
+    <div class="overlay" hidden$="[[!_active]]">
       <paper-spinner alt="[[alt]]" active="[[loading]]"></paper-spinner>
     </div>
 
@@ -142,7 +142,7 @@ Custom property | Description | Default
            *
            * @type String
            */
-          alt: 'loading',
+          alt: String,
           /**
            * Default animation configuration
            *
