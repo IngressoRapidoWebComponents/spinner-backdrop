@@ -96,7 +96,7 @@ Custom property | Description | Default
 
     </style>
 
-    <div class="overlay" hidden$="[[!_active]]">
+    <div class="overlay" hidden$="[[!_animationActive]]">
       <paper-spinner alt="[[alt]]" active="[[loading]]"></paper-spinner>
     </div>
 
@@ -134,7 +134,7 @@ Custom property | Description | Default
            *
            * @type Boolean
            */
-          _active: {
+          _animationActive: {
             type: Boolean,
             value: false
           },
@@ -167,7 +167,7 @@ Custom property | Description | Default
          * Observer if is loading or not
          */
         _loadingChanged: function() {
-          this._active = true;
+          this._animationActive = true;
           this.style.display = 'block';
 
           if (!this.loading) {
@@ -179,7 +179,7 @@ Custom property | Description | Default
          * Observer if animation is ended
          */
         _onNeonAnimationFinish: function() {
-          this._active = false;
+          this._animationActive = false;
           this.style.display = 'none';
         }
 
