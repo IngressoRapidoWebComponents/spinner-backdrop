@@ -1,4 +1,4 @@
-<!--
+/**
 @license
 Copyright (c) 2016 The Ingresso Rápido Web Components Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://ingressorapidowebcomponents.github.io/LICENSE.txt
@@ -6,15 +6,8 @@ The complete set of authors may be found at http://ingressorapidowebcomponents.g
 The complete set of contributors may be found at http://ingressorapidowebcomponents.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../paper-spinner/paper-spinner.html">
-<link rel="import" href="../neon-animation/neon-animation-runner-behavior.html">
-<link rel="import" href="../neon-animation/animations/fade-out-animation.html">
-<link rel="import" href="../web-animations-js/web-animations.min.html">
-
-<!--
+*/
+/**
 
 The `spinner-backdrop` shows a `paper-spinner` and a backdrop overlay with a great fade-in/fade-out animation to entire container.
 Perfect for page route transition!
@@ -58,10 +51,23 @@ Custom property | Description | Default
 `--spinner-backdrop-stroke-width` | The width of the spinner stroke | 3px
 
 @demo demo/index.html
--->
+*/
+/*
+  FIXME(polymer-modulizer): the above comments were extracted
+  from HTML and may be out of place here. Review them and
+  then delete this comment!
+*/
+import '../@polymer/polymer/polymer-legacy.js';
 
-<dom-module id="spinner-backdrop">
-  <template>
+import '../@polymer/paper-spinner/paper-spinner.js';
+import { NeonAnimationRunnerBehavior } from '../@polymer/neon-animation/neon-animation-runner-behavior.js';
+import '../@polymer/neon-animation/animations/fade-out-animation.js';
+import '../web-animations-js/web-animations.min.js';
+import { Polymer } from '../@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
+
+Polymer({
+  _template: html`
     <style is="custom-style">
 
       :host {
@@ -96,94 +102,84 @@ Custom property | Description | Default
 
     </style>
 
-    <div class="overlay" hidden$="[[!_animationActive]]">
+    <div class="overlay" hidden\$="[[!_animationActive]]">
       <paper-spinner alt="[[alt]]" active="[[loading]]"></paper-spinner>
     </div>
+`,
 
-  </template>
+  is: 'spinner-backdrop',
 
-  <script>
-    (function() {
-      'use strict';
+  behaviors: [
+    NeonAnimationRunnerBehavior
+  ],
 
-      Polymer({
-        is: 'spinner-backdrop',
+  listeners: {
+    'neon-animation-finish': '_onNeonAnimationFinish'
+  },
 
-        behaviors: [
-          Polymer.NeonAnimationRunnerBehavior
-        ],
-
-        listeners: {
-          'neon-animation-finish': '_onNeonAnimationFinish'
-        },
-
-        properties: {
-          /**
-           * Gets and Sets loading state, not counting animation time
-           *
-           * @type Boolean
-           */
-          loading: {
-            type: Boolean,
-            value: false,
-            notify: true,
-            observer: '_loadingChanged'
-          },
-          /**
-           * Gets active state, true if element is showing on page
-           *
-           * @type Boolean
-           */
-          _animationActive: {
-            type: Boolean,
-            value: false
-          },
-          /**
-           * Alternative text for accessibility
-           *
-           * @type String
-           */
-          alt: String,
-          /**
-           * Default animation configuration
-           *
-           * @type AnimationConfig
-           */
-          animationConfig: {
-            readOnly: true,
-            value: function() {
-              return {
-                'exit' : [{
-                  name: 'fade-out-animation',
-                  node: this,
-                  timing: {duration: 1000}
-                }]
-              }
-            }
-          }
-        },
-
-        /**
-         * Observer if is loading or not
-         */
-        _loadingChanged: function() {
-          this._animationActive = true;
-          this.style.display = 'block';
-
-          if (!this.loading) {
-            this.playAnimation('exit');
-          }
-        },
-
-        /**
-         * Observer if animation is ended
-         */
-        _onNeonAnimationFinish: function() {
-          this._animationActive = false;
-          this.style.display = 'none';
+  properties: {
+    /**
+     * Gets and Sets loading state, not counting animation time
+     *
+     * @type Boolean
+     */
+    loading: {
+      type: Boolean,
+      value: false,
+      notify: true,
+      observer: '_loadingChanged'
+    },
+    /**
+     * Gets active state, true if element is showing on page
+     *
+     * @type Boolean
+     */
+    _animationActive: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * Alternative text for accessibility
+     *
+     * @type String
+     */
+    alt: String,
+    /**
+     * Default animation configuration
+     *
+     * @type AnimationConfig
+     */
+    animationConfig: {
+      readOnly: true,
+      value: function() {
+        return {
+          'exit' : [{
+            name: 'fade-out-animation',
+            node: this,
+            timing: {duration: 1000}
+          }]
         }
+      }
+    }
+  },
 
-      });
-    })();
-  </script>
-</dom-module>
+  /**
+   * Observer if is loading or not
+   */
+  _loadingChanged: function() {
+    this._animationActive = true;
+    this.style.display = 'block';
+
+    if (!this.loading) {
+      this.playAnimation('exit');
+    }
+  },
+
+  /**
+   * Observer if animation is ended
+   */
+  _onNeonAnimationFinish: function() {
+    this._animationActive = false;
+    this.style.display = 'none';
+  }
+});
