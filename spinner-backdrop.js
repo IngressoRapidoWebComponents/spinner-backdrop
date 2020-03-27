@@ -57,14 +57,14 @@ Custom property | Description | Default
   from HTML and may be out of place here. Review them and
   then delete this comment!
 */
-import '../@polymer/polymer/polymer-legacy.js';
+import '@polymer/polymer/polymer-legacy.js';
 
-import '../@polymer/paper-spinner/paper-spinner.js';
-import { NeonAnimationRunnerBehavior } from '../@polymer/neon-animation/neon-animation-runner-behavior.js';
-import '../@polymer/neon-animation/animations/fade-out-animation.js';
-import '../web-animations-js/web-animations.min.js';
-import { Polymer } from '../@polymer/polymer/lib/legacy/polymer-fn.js';
-import { html } from '../@polymer/polymer/lib/utils/html-tag.js';
+import '@polymer/paper-spinner/paper-spinner.js';
+import { NeonAnimationRunnerBehavior } from '@polymer/neon-animation/neon-animation-runner-behavior.js';
+import '@polymer/neon-animation/animations/fade-out-animation.js';
+import 'web-animations-js/web-animations.min.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
 Polymer({
   _template: html`
