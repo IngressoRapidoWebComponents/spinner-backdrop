@@ -18,7 +18,6 @@
     "Andrew Willard (https://github.com/andrew-silva-movile)"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#v2.8.0",
     "@polymer/paper-spinner": "^3.0.0",
     "neon-animation": "PolymerElements/neon-animation#v2.2.1",
     "web-animations-js": "^2.3.1",
